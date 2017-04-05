@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 POSTGRES_URLS=${PGBOUNCER_URLS:-DATABASE_URL}
-POOL_MODE=${PGBOUNCER_POOL_MODE:-transaction}
+POOL_MODE=${PGBOUNCER_POOL_MODE:-session}
 SERVER_RESET_QUERY=${PGBOUNCER_SERVER_RESET_QUERY}
 n=1
 
@@ -56,6 +56,8 @@ log_connections = ${PGBOUNCER_LOG_CONNECTIONS:-1}
 log_disconnections = ${PGBOUNCER_LOG_DISCONNECTIONS:-1}
 log_pooler_errors = ${PGBOUNCER_LOG_POOLER_ERRORS:-1}
 stats_period = ${PGBOUNCER_STATS_PERIOD:-60}
+client_tls_sslmode = ${PGBOUNCER_CLIENT_TLS_SSLMODE:-verify-full}
+client_tls_cert_file = ${PGBOUNCER_CLIENT_TLS_CERT_FILE:-/app/rds-combined-ca-bundle.pem}
 [databases]
 EOFEOF
 
