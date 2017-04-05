@@ -99,3 +99,12 @@ done
 
 chmod go-rwx /app/vendor/pgbouncer/*
 chmod go-rwx /app/vendor/stunnel/*
+
+echo `date`": /app/vendor/pgbouncer/pgbouncer.ini"
+cat /app/vendor/pgbouncer/pgbouncer.ini
+
+echo `date`": /app/vendor/stunnel/stunnel-pgbouncer.conf"
+cat /app/vendor/stunnel/stunnel-pgbouncer.conf
+
+echo `date`": /app/vendor/pgbouncer/users.txt"
+cat /app/vendor/pgbouncer/users.txt
