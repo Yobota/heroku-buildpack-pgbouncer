@@ -81,6 +81,11 @@ aux-start() {
   declare name=$1 signal=$2
   shift 2
 
+  if [ "${QUOTAGUARDSTATIC_URL}" != "" ] ;
+  then
+      QGSOCKSIFY_PREFIX="bin/qgsocksify "
+  fi
+
   (
     at "$name-start"
 
@@ -88,7 +93,7 @@ aux-start() {
     trap '' SIGTERM
 
     # Start child in the background.
-    "$@" &
+    "${QGSOCKSIFY_PREFIX}" "$@" &
 
     # Translate SIGHUP to the appropriate signal to stop the child (anything
     # except SIGTERM which is ignored). This *will* cancel the wait and may
