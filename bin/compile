@@ -58,9 +58,9 @@ ln -s start-pgbouncer $BUILD_DIR/bin/start-pgbouncer-stunnel
 
 echo "-----> Compiling"
 cd ${BUILD_DIR}/${VENDORED_PGBOUNCER}/pgbouncer-${PGBOUNCER_VERSION}
-pwd
-ls
 ./configure --prefix=/usr/local --with-libevent=libevent-prefix
 make
-mv pgbouncer ../.
+mkdir -p ../bin
+mv pgbouncer ../bin/.
+chmod 700 ../bin/*
 #make install
