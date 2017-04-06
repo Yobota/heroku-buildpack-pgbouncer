@@ -11,13 +11,7 @@ set -e
 unset GIT_DIR
 
 # config
-if [ "$STACK" == "heroku-16" ]; then
-  PGBOUNCER_VERSION="1.7.2-heroku"
-  STUNNEL_VERSION="5.40"
-else
-  PGBOUNCER_VERSION="1.7-heroku"
-  STUNNEL_VERSION="5.28"
-fi
+PGBOUNCER_VERSION="1.7.2-heroku"
 
 # parse and derive params
 BUILD_DIR=$1
@@ -39,7 +33,6 @@ function indent() {
 }
 
 echo "Using pgbouncer version: ${PGBOUNCER_VERSION}" | indent
-echo "Using stunnel version: ${STUNNEL_VERSION}" | indent
 
 # vendor directories
 VENDORED_PGBOUNCER="vendor/pgbouncer"
@@ -51,11 +44,6 @@ echo "-----> Fetching and vendoring pgbouncer into slug"
 mkdir -p "$BUILD_DIR/$VENDORED_PGBOUNCER"
 tar xzf pgbouncer-${PGBOUNCER_VERSION}.tgz -C ${BUILD_DIR}/${VENDORED_PGBOUNCER}
 
-# vendor stunnel into the slug
-PATH="$BUILD_DIR/$VENDORED_STUNNEL/bin:$PATH"
-echo "-----> Fetching and vendoring stunnel into slug"
-mkdir -p "$BUILD_DIR/$VENDORED_STUNNEL"
-tar xzf stunnel-${STUNNEL_VERSION}.tgz -C ${BUILD_DIR}/${VENDORED_STUNNEL}
 
 echo "-----> Moving the configuration generation script into app/bin"
 mkdir -p $BUILD_DIR/bin
@@ -64,7 +52,13 @@ chmod +x $BUILD_DIR/bin/gen-pgbouncer-conf.sh
 
 echo "-----> Moving the start-pgbouncer-stunnel script into app/bin"
 mkdir -p $BUILD_DIR/bin
-cp "$BUILDPACK_DIR/bin/start-pgbouncer-stunnel" $BUILD_DIR/bin/
+cp "$BUILDPACK_DIR/bin/start-pgbouncer" $BUILD_DIR/bin/
 chmod +x $BUILD_DIR/bin/start-pgbouncer-stunnel
 
-echo "-----> pgbouncer/stunnel done"
+ln -s start-pgbouncer $BUILD_DIR/bin/start-pgbouncer-stunnel
+
+echo "-----> Compiling"
+cd ${BUILD_DIR}/${VENDORED_PGBOUNCER}
+./configure --prefix=/usr/local --with-libevent=libevent-prefix
+make
+make install
