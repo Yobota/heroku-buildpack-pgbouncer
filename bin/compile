@@ -65,7 +65,4 @@ mv pgbouncer ../bin/.
 chmod 700 ../bin/*
 #make install
 
-mkdir -p /var/run/postgresql
-chmod 700 /var/run/postgresql
-ls -dl /var/run/postgresql
 
