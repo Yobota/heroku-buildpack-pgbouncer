@@ -50,10 +50,10 @@ mkdir -p $BUILD_DIR/bin
 cp "$BUILDPACK_DIR/bin/gen-pgbouncer-conf.sh" $BUILD_DIR/bin
 chmod +x $BUILD_DIR/bin/gen-pgbouncer-conf.sh
 
-echo "-----> Moving the start-pgbouncer-stunnel script into app/bin"
+echo "-----> Moving the start-pgbouncer script into app/bin"
 mkdir -p $BUILD_DIR/bin
 cp "$BUILDPACK_DIR/bin/start-pgbouncer" $BUILD_DIR/bin/
-chmod +x $BUILD_DIR/bin/start-pgbouncer-stunnel
+chmod +x $BUILD_DIR/bin/start-pgbouncer
 
 ln -s start-pgbouncer $BUILD_DIR/bin/start-pgbouncer-stunnel
 
