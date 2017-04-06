@@ -11,7 +11,7 @@ set -e
 unset GIT_DIR
 
 # config
-PGBOUNCER_VERSION="1.7.2-heroku"
+PGBOUNCER_VERSION="1.7.2"
 
 # parse and derive params
 BUILD_DIR=$1
@@ -43,6 +43,12 @@ PATH="$BUILD_DIR/$VENDORED_PGBOUNCER/bin:$PATH"
 echo "-----> Fetching and vendoring pgbouncer into slug"
 mkdir -p "$BUILD_DIR/$VENDORED_PGBOUNCER"
 tar xzf pgbouncer-${PGBOUNCER_VERSION}.tgz -C ${BUILD_DIR}/${VENDORED_PGBOUNCER}
+echo "-----> Compiling"
+pwd
+ls
+./configure --prefix=/usr/local --with-libevent=libevent-prefix
+make
+make install
 
 
 echo "-----> Moving the configuration generation script into app/bin"
@@ -57,10 +63,4 @@ chmod +x $BUILD_DIR/bin/start-pgbouncer
 
 ln -s start-pgbouncer $BUILD_DIR/bin/start-pgbouncer-stunnel
 
-echo "-----> Compiling"
-cd ${BUILD_DIR}/${VENDORED_PGBOUNCER}
-pwd
-ls
-./configure --prefix=/usr/local --with-libevent=libevent-prefix
-make
-make install
+
