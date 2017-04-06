@@ -42,7 +42,7 @@ VENDORED_STUNNEL="vendor/stunnel"
 PATH="$BUILD_DIR/$VENDORED_PGBOUNCER/bin:$PATH"
 echo "-----> Fetching and vendoring pgbouncer into slug"
 mkdir -p "$BUILD_DIR/$VENDORED_PGBOUNCER"
-tar xzf pgbouncer-${PGBOUNCER_VERSION}.tgz -C ${BUILD_DIR}/${VENDORED_PGBOUNCER}
+tar xzf pgbouncer-${PGBOUNCER_VERSION}.tar.gz -C ${BUILD_DIR}/${VENDORED_PGBOUNCER}
 echo "-----> Compiling"
 pwd
 ls
