@@ -81,6 +81,4 @@ cat /app/vendor/pgbouncer/pgbouncer.ini
 echo `date`": /app/vendor/pgbouncer/users.txt"
 cat /app/vendor/pgbouncer/users.txt
 
-mkdir -p /var/run/postgresql
-chmod 700 /var/run/postgresql
-ls -dl /var/run/postgresql
+
