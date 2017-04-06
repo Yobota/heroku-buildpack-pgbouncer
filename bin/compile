@@ -64,7 +64,7 @@ chmod +x $BUILD_DIR/bin/qgsocksify
 
 echo "-----> Moving the qgsocksify dir into app/vendor"
 mkdir -p $BUILD_DIR/bin
-cp -r "$BUILDPACK_DIR/vendor" $BUILD_DIR/vendor
+cp -r "$BUILDPACK_DIR/vendor/dante" $BUILD_DIR/vendor/.
 
 
 echo "-----> Compiling"
