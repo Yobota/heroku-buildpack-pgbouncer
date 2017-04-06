@@ -19,6 +19,7 @@ listen_addr = 127.0.0.1
 listen_port = 6000
 auth_type = md5
 auth_file = /app/vendor/pgbouncer/users.txt
+unix_socket_dir=/var/run/postgresql
 
 ; When server connection is released back to pool:
 ;   session      - after client disconnects
