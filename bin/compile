@@ -46,6 +46,7 @@ tar xzf pgbouncer-${PGBOUNCER_VERSION}.tar.gz -C ${BUILD_DIR}/${VENDORED_PGBOUNC
 echo "-----> Compiling"
 pwd
 ls
+ls ${BUILD_DIR}/${VENDORED_PGBOUNCER}
 ./configure --prefix=/usr/local --with-libevent=libevent-prefix
 make
 make install
