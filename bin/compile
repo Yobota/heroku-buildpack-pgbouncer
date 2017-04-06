@@ -43,14 +43,6 @@ PATH="$BUILD_DIR/$VENDORED_PGBOUNCER/bin:$PATH"
 echo "-----> Fetching and vendoring pgbouncer into slug"
 mkdir -p "$BUILD_DIR/$VENDORED_PGBOUNCER"
 tar xzf pgbouncer-${PGBOUNCER_VERSION}.tar.gz -C ${BUILD_DIR}/${VENDORED_PGBOUNCER}
-echo "-----> Compiling"
-pwd
-ls
-ls ${BUILD_DIR}/${VENDORED_PGBOUNCER}
-./configure --prefix=/usr/local --with-libevent=libevent-prefix
-make
-make install
-
 
 echo "-----> Moving the configuration generation script into app/bin"
 mkdir -p $BUILD_DIR/bin
@@ -65,3 +57,10 @@ chmod +x $BUILD_DIR/bin/start-pgbouncer
 ln -s start-pgbouncer $BUILD_DIR/bin/start-pgbouncer-stunnel
 
 
+echo "-----> Compiling"
+cd ${BUILD_DIR}/${VENDORED_PGBOUNCER}/pgbouncer-${PGBOUNCER_VERSION}
+pwd
+ls
+./configure --prefix=/usr/local --with-libevent=libevent-prefix
+make
+make install
