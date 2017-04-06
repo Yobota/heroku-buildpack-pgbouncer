@@ -63,4 +63,4 @@ pwd
 ls
 ./configure --prefix=/usr/local --with-libevent=libevent-prefix
 make
-make install
+#make install
