@@ -11,12 +11,18 @@ if [ -z "${SERVER_RESET_QUERY}" ] &&  [ "$POOL_MODE" == "session" ]; then
   SERVER_RESET_QUERY="DISCARD ALL;"
 fi
 
+if [ -e /app/vendor/pgbouncer/pgbouncer.ini ] ; then
+rm -rf /app/vendor/pgbouncer/pgbouncer.ini
+fi
+if [ -e /app/vendor/pgbouncer/users.txt ] ; then
+rm -rf /app/vendor/pgbouncer/users.txt
+fi
 
 
 cat >> /app/vendor/pgbouncer/pgbouncer.ini << EOFEOF
 [pgbouncer]
 listen_addr = 127.0.0.1
-listen_port = 6000
+listen_port = 6432
 auth_type = md5
 auth_file = /app/vendor/pgbouncer/users.txt
 
@@ -55,9 +61,9 @@ do
 
   if [ "$PGBOUNCER_PREPARED_STATEMENTS" == "false" ]
   then
-    export ${POSTGRES_URL}_PGBOUNCER=postgres://$DB_USER:$DB_PASS@127.0.0.1:6000/$CLIENT_DB_NAME?prepared_statements=false
+    export ${POSTGRES_URL}_PGBOUNCER=postgres://$DB_USER:$DB_PASS@127.0.0.1:6432/$CLIENT_DB_NAME?prepared_statements=false
   else
-    export ${POSTGRES_URL}_PGBOUNCER=postgres://$DB_USER:$DB_PASS@127.0.0.1:6000/$CLIENT_DB_NAME
+    export ${POSTGRES_URL}_PGBOUNCER=postgres://$DB_USER:$DB_PASS@127.0.0.1:6432/$CLIENT_DB_NAME
   fi
 
   cat >> /app/vendor/pgbouncer/users.txt << EOFEOF
