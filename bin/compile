@@ -75,6 +75,5 @@ echo "-----> Compiling"
 cd ${BUILD_DIR}/${VENDORED_PGBOUNCER}/pgbouncer-${PGBOUNCER_VERSION}
 ./configure --prefix=/usr/local --with-libevent=libevent-prefix
 make
-make install
 
 
