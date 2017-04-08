@@ -61,16 +61,20 @@ mkdir -p $BUILD_DIR/bin
 cp "$BUILDPACK_DIR/bin/qgsocksify" $BUILD_DIR/bin/
 chmod +x $BUILD_DIR/bin/qgsocksify
 
+echo "-----> Moving the qgtunnel script into app/bin"
+mkdir -p $BUILD_DIR/bin
+cp "$BUILDPACK_DIR/bin/qgtunnel" $BUILD_DIR/bin/
+chmod +x $BUILD_DIR/bin/qgtunnel
+
 
 echo "-----> Moving the qgsocksify dir into app/vendor"
 mkdir -p $BUILD_DIR/bin
-cp -r "$BUILDPACK_DIR/vendor/dante" $BUILD_DIR/vendor/.
-
+cp -r "$BUILDPACK_DIR/vendor" $BUILD_DIR/.
 
 echo "-----> Compiling"
 cd ${BUILD_DIR}/${VENDORED_PGBOUNCER}/pgbouncer-${PGBOUNCER_VERSION}
 ./configure --prefix=/usr/local --with-libevent=libevent-prefix
 make
-#make install
+sudo make install
 
 
