@@ -71,7 +71,9 @@ do
 EOFEOF
 
   cat >> /app/vendor/pgbouncer/pgbouncer.ini << EOFEOF
-$CLIENT_DB_NAME= host=$DB_HOST port=$DB_PORT dbname=$DB_NAME
+; $CLIENT_DB_NAME= host=$DB_HOST port=$DB_PORT dbname=$DB_NAME
+$CLIENT_DB_NAME= host=localhost port=5432
+
 
 EOFEOF
 
