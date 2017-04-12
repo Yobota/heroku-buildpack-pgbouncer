@@ -22,7 +22,15 @@ run-pgbouncer() {
   mkfifo "$psmgr"
 
   # Start processes.
-  aux-start pgbouncer SIGINT vendor/pgbouncer/pgbouncer*/pgbouncer vendor/pgbouncer/pgbouncer.ini
+  if [ "${QUOTAGUARDSTATIC_URL}" != "" ] ;
+  then
+      kill -9 `ps -ef | grep qgtunnel | grep -v grep | awk '{print $2}'`
+      bin/qgtunnel &
+  fi
+  if [ "${USE_PGBOUNCER}" == "true" ] ;
+  then
+      aux-start pgbouncer SIGINT vendor/pgbouncer/pgbouncer*/pgbouncer vendor/pgbouncer/pgbouncer.ini
+  fi
   app-start SIGTERM "$@"
   pid=$!
 
@@ -69,7 +77,7 @@ config-gen() {
   at config-gen-end
 
   # Overwrite config vars with pgbouncer targets
-  POSTGRES_URLS=${PGBOUNCER_URLS:-DATABASE_URL}
+  POSTGRES_URLS=${POSTGRES_URLS:-DATABASE_URL}
 
   for POSTGRES_URL in $POSTGRES_URLS; do
     at "config-gen-override $POSTGRES_URL"
