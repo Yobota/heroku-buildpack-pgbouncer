@@ -64,7 +64,7 @@ run-pgbouncer() {
   at "kill-app pid=$pid"
   if [ "$pid" != "" ] ;
   then
-    kill -SIGTERM -$pid
+    kill -SIGTERM $pid
   fi
 
   # Wait for the app to finish.
