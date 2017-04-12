@@ -24,12 +24,18 @@ run-pgbouncer() {
   # Start processes.
   if [ "${QUOTAGUARDSTATIC_URL}" != "" ] ;
   then
-      kill -9 `ps -ef | grep qgtunnel | grep -v grep | grep -v start | awk '{print $2}'`
+      qgpids=`ps -ef | grep qgtunnel | grep -v grep | grep -v start | awk '{print $2}'`
+      if [ "$qgpids" != "" ] ; then
+        kill -9 "$qgpids"
+      fi
       bin/qgtunnel &
   fi
   if [ "${USE_PGBOUNCER}" == "true" ] ;
   then
-      kill -9 `ps -ef | grep pgbouncer | grep -v grep | grep -v start | awk '{print $2}'`
+      pgpids=`ps -ef | grep pgbouncer | grep -v grep | grep -v start | awk '{print $2}'`
+      if [ "$pgpids" != "" ] ; then
+        kill -9 "$pgpids"
+      fi
       aux-start pgbouncer SIGINT vendor/pgbouncer/pgbouncer*/pgbouncer vendor/pgbouncer/pgbouncer.ini
   fi
   app-start SIGTERM "$@"
