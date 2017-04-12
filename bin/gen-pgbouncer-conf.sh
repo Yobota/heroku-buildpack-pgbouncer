@@ -82,7 +82,7 @@ EOFEOF
   cat >> /app/.qgtunnel << EOFEOF
 [qgtunnel.${n}]
 accept = "127.0.0.1:600${n}"
-connect = "$DB_HOST:DB_PORT"
+connect = "$DB_HOST:$DB_PORT"
 encrypted = false
 transparent = true
 
