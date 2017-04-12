@@ -49,12 +49,10 @@ mkdir -p $BUILD_DIR/bin
 cp "$BUILDPACK_DIR/bin/gen-pgbouncer-conf.sh" $BUILD_DIR/bin
 chmod +x $BUILD_DIR/bin/gen-pgbouncer-conf.sh
 
-echo "-----> Moving the start-pgbouncer script into app/bin"
+echo "-----> Moving the start-pgbouncer-qgtunnel script into app/bin"
 mkdir -p $BUILD_DIR/bin
-cp "$BUILDPACK_DIR/bin/start-pgbouncer" $BUILD_DIR/bin/
-chmod +x $BUILD_DIR/bin/start-pgbouncer
-
-ln -s start-pgbouncer $BUILD_DIR/bin/start-pgbouncer-stunnel
+cp "$BUILDPACK_DIR/bin/start-pgbouncer-qgtunnel" $BUILD_DIR/bin/
+chmod +x $BUILD_DIR/bin/start-pgbouncer-qgtunnel
 
 echo "-----> Moving the qgsocksify script into app/bin"
 mkdir -p $BUILD_DIR/bin
@@ -75,5 +73,3 @@ echo "-----> Compiling"
 cd ${BUILD_DIR}/${VENDORED_PGBOUNCER}/pgbouncer-${PGBOUNCER_VERSION}
 ./configure --prefix=/usr/local --with-libevent=libevent-prefix
 make
-
-
