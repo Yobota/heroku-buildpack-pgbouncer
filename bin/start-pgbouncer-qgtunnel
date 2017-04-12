@@ -62,7 +62,10 @@ run-pgbouncer() {
   # case something else crashed. If the dyno is shutting down, then SIGTERM
   # has already been sent.
   at "kill-app pid=$pid"
-  kill -SIGTERM -$pid
+  if [ "$pid" != "" ] ;
+  then
+    kill -SIGTERM -$pid
+  fi
 
   # Wait for the app to finish.
   at "wait-app pid=$pid"
@@ -73,7 +76,10 @@ run-pgbouncer() {
   declare name
   for name in "${!pids[@]}"; do
     at "kill-aux name=$name pid=${pids[$name]} signal=${signals[$name]}"
-    kill -SIGHUP "${pids[$name]}"
+    if [ "${pids[$name]}" != "" ] ;
+    then
+        kill -SIGHUP "${pids[$name]}"
+    fi
   done
 }
 
