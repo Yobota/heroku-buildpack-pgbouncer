@@ -43,12 +43,12 @@ reserve_pool_size = ${PGBOUNCER_RESERVE_POOL_SIZE:-1}
 reserve_pool_timeout = ${PGBOUNCER_RESERVE_POOL_TIMEOUT:-5.0}
 server_lifetime = ${PGBOUNCER_SERVER_LIFETIME:-3600}
 server_idle_timeout = ${PGBOUNCER_SERVER_IDLE_TIMEOUT:-600}
-log_connections = ${PGBOUNCER_LOG_CONNECTIONS:-1}
-log_disconnections = ${PGBOUNCER_LOG_DISCONNECTIONS:-1}
-log_pooler_errors = ${PGBOUNCER_LOG_POOLER_ERRORS:1}
+log_connections = ${PGBOUNCER_LOG_CONNECTIONS:-0}
+log_disconnections = ${PGBOUNCER_LOG_DISCONNECTIONS:-0}
+log_pooler_errors = ${PGBOUNCER_LOG_POOLER_ERRORS:-1}
 stats_period = ${PGBOUNCER_STATS_PERIOD:-60}
 verbose = ${PGBOUNCER_VERBOSE:-0}
-dns_max_ttl = ${PGBOUNCER_DNS_MAX_TTL:-15}
+dns_max_ttl = ${PGBOUNCER_DNS_MAX_TTL:-15.0}
 server_tls_sslmode = ${PGBOUNCER_SERVER_TLS_SSLMODE:-require}
 server_tls_ca_file = ${PGBOUNCER_SERVER_TLS_CA_FILE}
 server_tls_protocols = secure
@@ -95,7 +95,7 @@ $CLIENT_DB_NAME= host=$DB_HOST port=$DB_PORT dbname=$DB_NAME max_db_connections=
 EOFEOF
   else
     cat >> /app/vendor/pgbouncer/pgbouncer.ini << EOFEOF
-$CLIENT_DB_NAME= host=127.0.0.1 dbname=$DB_NAME port=600${n} max_db_connections=10
+$CLIENT_DB_NAME= host=127.0.0.1 port=600${n} dbname=$DB_NAME max_db_connections=10
 EOFEOF
   fi
 
@@ -107,8 +107,8 @@ EOFEOF
   fi
 done
 
-chmod -R 700 /app/vendor/pgbouncer/*
-chmod -R 700 /app/.qgtunnel
+chmod go-rwx /app/vendor/pgbouncer/*
+chmod go-rwx /app/.qgtunnel
 
 echo `date`": /app/vendor/pgbouncer/pgbouncer.ini"
 cat /app/vendor/pgbouncer/pgbouncer.ini
