@@ -56,7 +56,8 @@ tcp_keepalive=${PGBOUNCER_TCP_KEEPALIVE:-1}
 tcp_keepidle=${PGBOUNCER_TCP_KEEPIDLE:-180}
 tcp_keepintvl=${PGBOUNCER_TCP_KEEPINTVL:-180}
 tcp_keepcnt=${PGBOUNCER_TCP_KEEPCNT:-30}
-; psql -h 127.0.0.1 -p 6432 -U  -d db0 -c "select current_timestamp, b.*, a.* from pg_stat_activity a LEFT JOIN pg_stat_ssl b on a.pid = b.pid where a.pid = pg_backend_pid() ;" > output.txt
+
+; psql -h 127.0.0.1 -p 6432 -U someuser -d db0 -c "select current_timestamp, b.*, a.* from pg_stat_activity a LEFT JOIN pg_stat_ssl b on a.pid = b.pid where a.pid = pg_backend_pid() ;" > output.txt
 
 [databases]
 EOFEOF
@@ -119,7 +120,7 @@ cat /app/vendor/pgbouncer/pgbouncer.ini
 
 
 echo `date`": /app/vendor/pgbouncer/users.txt"
-cat /app/vendor/pgbouncer/users.txt
+# cat /app/vendor/pgbouncer/users.txt
 
 echo `date`": /app/.qgtunnel"
 cat /app/.qgtunnel

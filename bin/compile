@@ -36,7 +36,6 @@ echo "Using pgbouncer version: ${PGBOUNCER_VERSION}" | indent
 
 # vendor directories
 VENDORED_PGBOUNCER="vendor/pgbouncer"
-VENDORED_STUNNEL="vendor/stunnel"
 
 # vendor pgbouncer into the slug
 PATH="$BUILD_DIR/$VENDORED_PGBOUNCER/bin:$PATH"
