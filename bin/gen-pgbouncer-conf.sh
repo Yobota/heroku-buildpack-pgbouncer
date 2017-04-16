@@ -52,6 +52,10 @@ dns_max_ttl = ${PGBOUNCER_DNS_MAX_TTL:-15.0}
 server_tls_sslmode = ${PGBOUNCER_SERVER_TLS_SSLMODE:-require}
 server_tls_ca_file = ${PGBOUNCER_SERVER_TLS_CA_FILE}
 server_tls_protocols = secure
+tcp_keepalive=${PGBOUNCER_TCP_KEEPALIVE:-1}
+tcp_keepidle=${PGBOUNCER_TCP_KEEPIDLE:-180}
+tcp_keepintvl=${PGBOUNCER_TCP_KEEPINTVL:-180}
+tcp_keepcnt=${PGBOUNCER_TCP_KEEPCNT:-30}
 ; psql -h 127.0.0.1 -p 6432 -U  -d db0 -c "select current_timestamp, b.*, a.* from pg_stat_activity a LEFT JOIN pg_stat_ssl b on a.pid = b.pid where a.pid = pg_backend_pid() ;" > output.txt
 
 [databases]
